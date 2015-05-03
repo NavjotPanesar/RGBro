@@ -1,9 +1,0 @@
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\obj\Debug\ControlLED.csprojResolveAssemblyReference.cache
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\obj\Debug\ControlLED.csproj.GenerateResource.Cache
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\obj\Debug\ControlLED.Form1.resources
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\bin\Debug\RGBro.exe.config
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\bin\Debug\RGBro.exe
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\bin\Debug\RGBro.pdb
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\obj\Debug\RGBro.Properties.Resources.resources
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\obj\Debug\RGBro.exe
-d:\documents\visual studio 2013\Projects\ControlLED\ControlLED\obj\Debug\RGBro.pdb
