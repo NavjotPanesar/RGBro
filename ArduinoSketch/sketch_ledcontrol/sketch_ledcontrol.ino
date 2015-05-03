@@ -118,7 +118,7 @@ void setup() {
   pinMode(grnPin, OUTPUT);
   pinMode(bluPin, OUTPUT);
   Serial.begin(9600);
-  f.fade( rgb_color(100, 60, 10));
+  f.fade( rgb_color(33, 33, 33));
 }
 
 //Main Loop

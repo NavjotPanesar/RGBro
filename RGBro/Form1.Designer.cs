@@ -185,6 +185,7 @@
             this.textBoxRed.Size = new System.Drawing.Size(38, 20);
             this.textBoxRed.TabIndex = 13;
             this.textBoxRed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxRed.TextChanged += new System.EventHandler(this.textBoxRed_TextChanged);
             // 
             // trackBarRed
             // 
@@ -220,6 +221,7 @@
             this.textBoxGreen.Size = new System.Drawing.Size(37, 20);
             this.textBoxGreen.TabIndex = 14;
             this.textBoxGreen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxGreen.TextChanged += new System.EventHandler(this.textBoxGreen_TextChanged);
             // 
             // textBoxBlue
             // 
@@ -228,6 +230,7 @@
             this.textBoxBlue.Size = new System.Drawing.Size(38, 20);
             this.textBoxBlue.TabIndex = 15;
             this.textBoxBlue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxBlue.TextChanged += new System.EventHandler(this.textBoxBlue_TextChanged);
             // 
             // label1
             // 
@@ -362,6 +365,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(426, 25);
             this.toolStrip1.TabIndex = 31;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripButtonSettings
             // 
@@ -391,6 +395,7 @@
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxColorPreview);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "RGBro";
             this.Load += new System.EventHandler(this.Form1_Load);

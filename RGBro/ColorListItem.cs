@@ -23,15 +23,49 @@ namespace ControlLED
                                                 ItemColor.B);
             }
         }
-        public void changeRed(int r)
+        public int Red
+        {
+            get
+            {
+                return ItemColor.R;
+            }
+            set
+            {
+                changeRed(value);
+            }
+        }
+        public int Green
+        {
+            get
+            {
+                return ItemColor.G;
+            }
+            set
+            {
+                changeGreen(value);
+            }
+        }
+        public int Blue
+        {
+            get
+            {
+                return ItemColor.B;
+            }
+            set
+            {
+                changeBlue(value);
+            }
+        }
+
+        private void changeRed(int r)
         {
             ItemColor = Color.FromArgb(255, r, ItemColor.G, ItemColor.B);
         }
-        public void changeGreen(int g)
+        private void changeGreen(int g)
         {
             ItemColor = Color.FromArgb(255, ItemColor.R, g, ItemColor.B);
         }
-        public void changeBlue(int b)
+        private void changeBlue(int b)
         {
             ItemColor = Color.FromArgb(255, ItemColor.R, ItemColor.G, b);
         }

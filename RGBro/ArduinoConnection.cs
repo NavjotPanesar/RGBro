@@ -95,7 +95,7 @@ namespace ControlLED
                 bytesToSend[0] = Convert.ToByte(CommunicationType.SendCommand);
                 bytesToSend[1] = Convert.ToByte(CommandType.SetCrossfade);
                 bytesToSend[2] = Convert.ToByte(colors.Count);
-                bytesToSend[3] = Convert.ToByte(delay); //allows one decimal of precision i.e 0.7 -> 7
+                bytesToSend[3] = Convert.ToByte(delay);
                 bytesToSend[4] = Convert.ToByte(0);
                 int j = 0;
             for(int i = 5; i < colors.Count*3 + 5; i+=3){
