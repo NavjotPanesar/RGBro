@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.colorListItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pictureBoxColorPreview = new System.Windows.Forms.PictureBox();
@@ -36,7 +37,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonCrossfade = new System.Windows.Forms.RadioButton();
             this.buttonApply = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonColorPicker = new System.Windows.Forms.Button();
             this.textBoxHex = new System.Windows.Forms.TextBox();
@@ -58,7 +58,10 @@
             this.listBoxCrossfade = new System.Windows.Forms.ListBox();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.labelPort = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
+            this.backgroundWorkerConnect = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.colorListItemBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorPreview)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -67,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarGreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlue)).BeginInit();
             this.groupBoxCrossfade.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // colorListItemBindingSource
@@ -75,7 +79,7 @@
             // 
             // pictureBoxColorPreview
             // 
-            this.pictureBoxColorPreview.Location = new System.Drawing.Point(12, 190);
+            this.pictureBoxColorPreview.Location = new System.Drawing.Point(12, 219);
             this.pictureBoxColorPreview.Name = "pictureBoxColorPreview";
             this.pictureBoxColorPreview.Size = new System.Drawing.Size(188, 50);
             this.pictureBoxColorPreview.TabIndex = 19;
@@ -85,7 +89,7 @@
             // 
             this.radioButtonSingle.AutoSize = true;
             this.radioButtonSingle.Checked = true;
-            this.radioButtonSingle.Location = new System.Drawing.Point(6, 19);
+            this.radioButtonSingle.Location = new System.Drawing.Point(6, 35);
             this.radioButtonSingle.Name = "radioButtonSingle";
             this.radioButtonSingle.Size = new System.Drawing.Size(81, 17);
             this.radioButtonSingle.TabIndex = 20;
@@ -98,7 +102,7 @@
             // 
             this.groupBox1.Controls.Add(this.radioButtonCrossfade);
             this.groupBox1.Controls.Add(this.radioButtonSingle);
-            this.groupBox1.Location = new System.Drawing.Point(12, 246);
+            this.groupBox1.Location = new System.Drawing.Point(12, 276);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(188, 85);
             this.groupBox1.TabIndex = 21;
@@ -108,7 +112,7 @@
             // radioButtonCrossfade
             // 
             this.radioButtonCrossfade.AutoSize = true;
-            this.radioButtonCrossfade.Location = new System.Drawing.Point(6, 42);
+            this.radioButtonCrossfade.Location = new System.Drawing.Point(6, 58);
             this.radioButtonCrossfade.Name = "radioButtonCrossfade";
             this.radioButtonCrossfade.Size = new System.Drawing.Size(72, 17);
             this.radioButtonCrossfade.TabIndex = 21;
@@ -117,22 +121,13 @@
             // 
             // buttonApply
             // 
-            this.buttonApply.Location = new System.Drawing.Point(120, 336);
+            this.buttonApply.Location = new System.Drawing.Point(12, 367);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(80, 23);
             this.buttonApply.TabIndex = 22;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 335);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 23);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -148,15 +143,15 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 10);
+            this.groupBox2.Location = new System.Drawing.Point(12, 26);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(188, 174);
+            this.groupBox2.Size = new System.Drawing.Size(188, 187);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             // 
             // buttonColorPicker
             // 
-            this.buttonColorPicker.Location = new System.Drawing.Point(10, 145);
+            this.buttonColorPicker.Location = new System.Drawing.Point(10, 161);
             this.buttonColorPicker.Name = "buttonColorPicker";
             this.buttonColorPicker.Size = new System.Drawing.Size(75, 23);
             this.buttonColorPicker.TabIndex = 21;
@@ -166,7 +161,7 @@
             // 
             // textBoxHex
             // 
-            this.textBoxHex.Location = new System.Drawing.Point(117, 144);
+            this.textBoxHex.Location = new System.Drawing.Point(117, 160);
             this.textBoxHex.Name = "textBoxHex";
             this.textBoxHex.Size = new System.Drawing.Size(59, 20);
             this.textBoxHex.TabIndex = 20;
@@ -177,7 +172,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(105, 148);
+            this.label4.Location = new System.Drawing.Point(105, 164);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 13);
             this.label4.TabIndex = 19;
@@ -185,7 +180,7 @@
             // 
             // textBoxRed
             // 
-            this.textBoxRed.Location = new System.Drawing.Point(137, 11);
+            this.textBoxRed.Location = new System.Drawing.Point(137, 27);
             this.textBoxRed.Name = "textBoxRed";
             this.textBoxRed.Size = new System.Drawing.Size(38, 20);
             this.textBoxRed.TabIndex = 13;
@@ -193,7 +188,7 @@
             // 
             // trackBarRed
             // 
-            this.trackBarRed.Location = new System.Drawing.Point(28, 11);
+            this.trackBarRed.Location = new System.Drawing.Point(28, 27);
             this.trackBarRed.Name = "trackBarRed";
             this.trackBarRed.Size = new System.Drawing.Size(104, 45);
             this.trackBarRed.TabIndex = 10;
@@ -202,7 +197,7 @@
             // 
             // trackBarGreen
             // 
-            this.trackBarGreen.Location = new System.Drawing.Point(27, 55);
+            this.trackBarGreen.Location = new System.Drawing.Point(27, 71);
             this.trackBarGreen.Name = "trackBarGreen";
             this.trackBarGreen.Size = new System.Drawing.Size(104, 45);
             this.trackBarGreen.TabIndex = 11;
@@ -211,7 +206,7 @@
             // 
             // trackBarBlue
             // 
-            this.trackBarBlue.Location = new System.Drawing.Point(28, 99);
+            this.trackBarBlue.Location = new System.Drawing.Point(28, 115);
             this.trackBarBlue.Name = "trackBarBlue";
             this.trackBarBlue.Size = new System.Drawing.Size(104, 45);
             this.trackBarBlue.TabIndex = 12;
@@ -220,7 +215,7 @@
             // 
             // textBoxGreen
             // 
-            this.textBoxGreen.Location = new System.Drawing.Point(137, 55);
+            this.textBoxGreen.Location = new System.Drawing.Point(137, 71);
             this.textBoxGreen.Name = "textBoxGreen";
             this.textBoxGreen.Size = new System.Drawing.Size(37, 20);
             this.textBoxGreen.TabIndex = 14;
@@ -228,7 +223,7 @@
             // 
             // textBoxBlue
             // 
-            this.textBoxBlue.Location = new System.Drawing.Point(136, 100);
+            this.textBoxBlue.Location = new System.Drawing.Point(136, 116);
             this.textBoxBlue.Name = "textBoxBlue";
             this.textBoxBlue.Size = new System.Drawing.Size(38, 20);
             this.textBoxBlue.TabIndex = 15;
@@ -237,7 +232,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
+            this.label1.Location = new System.Drawing.Point(6, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(15, 13);
             this.label1.TabIndex = 16;
@@ -246,7 +241,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 103);
+            this.label3.Location = new System.Drawing.Point(8, 119);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(14, 13);
             this.label3.TabIndex = 18;
@@ -255,7 +250,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 58);
+            this.label2.Location = new System.Drawing.Point(7, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(15, 13);
             this.label2.TabIndex = 17;
@@ -263,7 +258,6 @@
             // 
             // groupBoxCrossfade
             // 
-            this.groupBoxCrossfade.Controls.Add(this.buttonUpdate);
             this.groupBoxCrossfade.Controls.Add(this.label6);
             this.groupBoxCrossfade.Controls.Add(this.textBoxCrossfadeLength);
             this.groupBoxCrossfade.Controls.Add(this.label5);
@@ -271,7 +265,7 @@
             this.groupBoxCrossfade.Controls.Add(this.listBoxCrossfade);
             this.groupBoxCrossfade.Controls.Add(this.buttonRemove);
             this.groupBoxCrossfade.Controls.Add(this.buttonAdd);
-            this.groupBoxCrossfade.Location = new System.Drawing.Point(216, 10);
+            this.groupBoxCrossfade.Location = new System.Drawing.Point(216, 26);
             this.groupBoxCrossfade.Name = "groupBoxCrossfade";
             this.groupBoxCrossfade.Size = new System.Drawing.Size(202, 277);
             this.groupBoxCrossfade.TabIndex = 29;
@@ -280,7 +274,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 208);
+            this.label6.Location = new System.Drawing.Point(9, 224);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 13);
             this.label6.TabIndex = 39;
@@ -289,7 +283,7 @@
             // 
             // textBoxCrossfadeLength
             // 
-            this.textBoxCrossfadeLength.Location = new System.Drawing.Point(101, 205);
+            this.textBoxCrossfadeLength.Location = new System.Drawing.Point(101, 221);
             this.textBoxCrossfadeLength.Name = "textBoxCrossfadeLength";
             this.textBoxCrossfadeLength.Size = new System.Drawing.Size(89, 20);
             this.textBoxCrossfadeLength.TabIndex = 38;
@@ -300,7 +294,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 234);
+            this.label5.Location = new System.Drawing.Point(13, 250);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 37;
@@ -308,7 +302,7 @@
             // 
             // textBoxCrossfadeDelay
             // 
-            this.textBoxCrossfadeDelay.Location = new System.Drawing.Point(101, 231);
+            this.textBoxCrossfadeDelay.Location = new System.Drawing.Point(101, 247);
             this.textBoxCrossfadeDelay.Name = "textBoxCrossfadeDelay";
             this.textBoxCrossfadeDelay.Size = new System.Drawing.Size(89, 20);
             this.textBoxCrossfadeDelay.TabIndex = 36;
@@ -319,7 +313,7 @@
             // 
             this.listBoxCrossfade.DataSource = this.colorListItemBindingSource;
             this.listBoxCrossfade.FormattingEnabled = true;
-            this.listBoxCrossfade.Location = new System.Drawing.Point(101, 14);
+            this.listBoxCrossfade.Location = new System.Drawing.Point(101, 30);
             this.listBoxCrossfade.Name = "listBoxCrossfade";
             this.listBoxCrossfade.Size = new System.Drawing.Size(89, 173);
             this.listBoxCrossfade.TabIndex = 35;
@@ -327,7 +321,7 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Location = new System.Drawing.Point(6, 72);
+            this.buttonRemove.Location = new System.Drawing.Point(6, 59);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(89, 23);
             this.buttonRemove.TabIndex = 34;
@@ -337,7 +331,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(6, 14);
+            this.buttonAdd.Location = new System.Drawing.Point(6, 30);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(89, 23);
             this.buttonAdd.TabIndex = 33;
@@ -345,15 +339,41 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // buttonUpdate
+            // labelPort
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(6, 43);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(89, 23);
-            this.buttonUpdate.TabIndex = 40;
-            this.buttonUpdate.Text = "Update";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
-            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            this.labelPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPort.AutoSize = true;
+            this.labelPort.Location = new System.Drawing.Point(348, 377);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(70, 13);
+            this.labelPort.TabIndex = 30;
+            this.labelPort.Text = "Connecting...";
+            this.labelPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelPort.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonSettings});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(426, 25);
+            this.toolStrip1.TabIndex = 31;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButtonSettings
+            // 
+            this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSettings.Image")));
+            this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSettings.Name = "toolStripButtonSettings";
+            this.toolStripButtonSettings.Size = new System.Drawing.Size(53, 22);
+            this.toolStripButtonSettings.Text = "Settings";
+            this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
+            // 
+            // backgroundWorkerConnect
+            // 
+            this.backgroundWorkerConnect.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerConnect_DoWork);
             // 
             // Form1
             // 
@@ -361,10 +381,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(426, 370);
+            this.ClientSize = new System.Drawing.Size(426, 398);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.labelPort);
             this.Controls.Add(this.groupBoxCrossfade);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxColorPreview);
@@ -382,7 +403,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlue)).EndInit();
             this.groupBoxCrossfade.ResumeLayout(false);
             this.groupBoxCrossfade.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -395,7 +419,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonCrossfade;
         private System.Windows.Forms.Button buttonApply;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBoxRed;
         private System.Windows.Forms.TrackBar trackBarRed;
@@ -417,7 +440,10 @@
         private System.Windows.Forms.Button buttonColorPicker;
         private System.Windows.Forms.TextBox textBoxHex;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Label labelPort;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerConnect;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSettings;
 
     }
 }

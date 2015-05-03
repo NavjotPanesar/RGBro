@@ -137,13 +137,13 @@ void loop() {
   {
     //Read buffer
     inputByte_0 = Serial.read();
-    delay(100);    
+    //delay(100);    
     inputByte_1 = Serial.read();
-    delay(100);      
+    //delay(100);      
     inputByte_2 = Serial.read();
-    delay(100);      
+   // delay(100);      
     inputByte_3 = Serial.read();
-    delay(100);
+   // delay(100);
     inputByte_4 = Serial.read();   
   }
   //Check for start of Message
@@ -175,7 +175,7 @@ void loop() {
             break;
           case 128:
             //Say hello
-            Serial.print("HELLO FROM ARDUINO");
+            Serial.print("Z");
             break;
         } 
         //Clear Message bytes
@@ -184,8 +184,6 @@ void loop() {
         inputByte_2 = 0;
         inputByte_3 = 0;
         inputByte_4 = 0;
-        //Let the PC know we are ready for more data
-        Serial.print("-READY TO RECEIVE");
   }
   
   

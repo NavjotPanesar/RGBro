@@ -6,6 +6,7 @@ using System.IO.Ports;
 
 using System.IO;
 
+
 public class ArduinoControllerMain
 {
 
@@ -21,6 +22,7 @@ public class ArduinoControllerMain
                 currentPort = new SerialPort(port, 9600);
                 if (DetectArduino())
                 {
+                    RGBro.Properties.Settings.Default.port = port;
                     portFound = true;
                     break;
                 }
@@ -29,11 +31,13 @@ public class ArduinoControllerMain
                     portFound = false;
 
                 }
+                currentPort.Close();
             }
 
         }
         catch (Exception e)
         {
+            Console.Out.Write(e);
         }
         if (!portFound)
         {
@@ -56,7 +60,7 @@ public class ArduinoControllerMain
             char charReturnValue = (Char)intReturnASCII;
             currentPort.Open();
             currentPort.Write(buffer, 0, 5);
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             int count = currentPort.BytesToRead;
             string returnMessage = "";
             while (count > 0)
@@ -65,9 +69,8 @@ public class ArduinoControllerMain
                 returnMessage = returnMessage + Convert.ToChar(intReturnASCII);
                 count--;
             }
-            //ComPort.name = returnMessage;
             currentPort.Close();
-            if (returnMessage.Contains("HELLO FROM ARDUINO"))
+            if (returnMessage.Contains("Z"))
             {
                 return true;
             }

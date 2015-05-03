@@ -14,6 +14,12 @@ namespace ControlLED
         //Potentially hangs
         public bool Connect()
         {
+            //use connection from last time
+            if (RGBro.Properties.Settings.Default.port != null && RGBro.Properties.Settings.Default.port != "")
+            {
+                arduinoPort = new SerialPort(RGBro.Properties.Settings.Default.port, 9600);
+                return true;
+            }
             //make one attempt at getting the port
             if (arduinoPort == null)
             {
@@ -24,8 +30,21 @@ namespace ControlLED
                     return false;
                 }
             }
-
             return true;
+        }
+
+        public String PortName
+        {
+            get
+            {
+                return arduinoPort.PortName;
+            }
+            
+        }
+
+        public void resetConnection()
+        {
+            arduinoPort = null;
         }
 
         private enum CommunicationType

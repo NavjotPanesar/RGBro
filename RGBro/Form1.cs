@@ -11,15 +11,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 using System.Drawing;
+using RGBro;
 
 namespace ControlLED
 {
+    delegate void SetTextCallback(string text);
     public partial class Form1 : Form
     {
         private ArduinoConnection arduinoConnection;
         private List<ColorListItem> crossfadeColors;
         private ColorListItem currentColorItem;
-        private int lastSelectedColor = -1;
 
         public Form1()
         {
@@ -47,6 +48,11 @@ namespace ControlLED
             groupBoxCrossfade.Visible = false;
             currentColorItem = new ColorListItem(Color.FromArgb(255, trackBarRed.Value, trackBarGreen.Value, trackBarBlue.Value));
             textBoxHex.DataBindings.Add("Text", currentColorItem, "HexColor");
+
+            if (!backgroundWorkerConnect.IsBusy)
+            {
+                backgroundWorkerConnect.RunWorkerAsync();
+            }
         }
 
         private void trackBarRed_Scroll(object sender, EventArgs e)
@@ -113,7 +119,6 @@ namespace ControlLED
         {
             if (listBoxCrossfade.SelectedIndex != -1)
             {
-                lastSelectedColor = -1;
                 crossfadeColors.RemoveAt(listBoxCrossfade.SelectedIndex);
                 BindData();
             }
@@ -141,6 +146,10 @@ namespace ControlLED
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
+            if(arduinoConnection.Connect() == false)
+            {
+                MessageBox.Show("Error: not currently connected.");
+            }
             if (radioButtonSingle.Checked)
             {
                 arduinoConnection.sendSingleColor(trackBarRed.Value, trackBarGreen.Value, trackBarBlue.Value);
@@ -181,7 +190,6 @@ namespace ControlLED
             if (index != -1)
             {
                 updateCurrentColor(crossfadeColors[index].ItemColor);
-                lastSelectedColor = index;
             }
         }
 
@@ -203,14 +211,56 @@ namespace ControlLED
             trackBarBlue.Value = currentColorItem.ItemColor.B;
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+
+        private void backgroundWorkerConnect_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (lastSelectedColor != -1)
+            SetConnectionText("Connecting...");
+            bool success = arduinoConnection.Connect();
+            if (success)
             {
-                crossfadeColors[lastSelectedColor].ItemColor = currentColorItem.ItemColor;
-                BindData();
+                SetConnectionText(arduinoConnection.PortName);
+            }
+            else
+            {
+                SetConnectionText("Error");
             }
         }
+
+        private void SetConnectionText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.labelPort.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetConnectionText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.labelPort.Text = text;
+            }
+        }
+
+        private void toolStripLabelSettings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButtonSettings_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            if (settingsForm.ShowDialog() == DialogResult.OK)
+            {
+                arduinoConnection.resetConnection();
+                if (!backgroundWorkerConnect.IsBusy)
+                {
+                    backgroundWorkerConnect.RunWorkerAsync();
+                }
+            }
+            
+        }
+
 
     }
 }
