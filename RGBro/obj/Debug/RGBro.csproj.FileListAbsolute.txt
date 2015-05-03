@@ -1,0 +1,9 @@
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\bin\Debug\RGBro.exe.config
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\obj\Debug\RGBro.exe
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\obj\Debug\RGBro.pdb
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\bin\Debug\RGBro.exe
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\bin\Debug\RGBro.pdb
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\obj\Debug\RGBro.csprojResolveAssemblyReference.cache
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\obj\Debug\ControlLED.Form1.resources
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\obj\Debug\RGBro.Properties.Resources.resources
+D:\Documents\Visual Studio 2013\Projects\RGBro\RGBro\obj\Debug\RGBro.csproj.GenerateResource.Cache
