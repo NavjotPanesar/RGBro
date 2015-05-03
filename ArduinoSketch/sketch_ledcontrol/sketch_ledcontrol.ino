@@ -133,7 +133,7 @@ void loop() {
     delay(crossfadeDelay*1000);
   }
   //Read Buffer
-  if (Serial.available() == 5) 
+  if (Serial.available() >= 5) 
   {
     //Read buffer
     inputByte_0 = Serial.read();
@@ -158,7 +158,7 @@ void loop() {
               crossfadeDelay = inputByte_3;
               colorsList = new rgb_color[numColors];
               int index = 0;
-              if (Serial.available() == numColors*3){
+              if (Serial.available() >= numColors*3){
                   for(;index < numColors; index++){
                       byte r = Serial.read();
                       byte g = Serial.read();

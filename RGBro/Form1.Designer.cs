@@ -58,6 +58,7 @@
             this.listBoxCrossfade = new System.Windows.Forms.ListBox();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.colorListItemBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorPreview)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -262,6 +263,7 @@
             // 
             // groupBoxCrossfade
             // 
+            this.groupBoxCrossfade.Controls.Add(this.buttonUpdate);
             this.groupBoxCrossfade.Controls.Add(this.label6);
             this.groupBoxCrossfade.Controls.Add(this.textBoxCrossfadeLength);
             this.groupBoxCrossfade.Controls.Add(this.label5);
@@ -325,7 +327,7 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Location = new System.Drawing.Point(6, 43);
+            this.buttonRemove.Location = new System.Drawing.Point(6, 72);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(89, 23);
             this.buttonRemove.TabIndex = 34;
@@ -342,6 +344,16 @@
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(6, 43);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(89, 23);
+            this.buttonUpdate.TabIndex = 40;
+            this.buttonUpdate.Text = "Update";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // Form1
             // 
@@ -405,6 +417,7 @@
         private System.Windows.Forms.Button buttonColorPicker;
         private System.Windows.Forms.TextBox textBoxHex;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonUpdate;
 
     }
 }

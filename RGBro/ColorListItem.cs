@@ -17,8 +17,10 @@ namespace ControlLED
         public string HexColor 
         { 
             get 
-            { 
-                return System.Drawing.ColorTranslator.ToHtml(ItemColor).Substring(1); 
+            {
+                return String.Format("{0:X2}{1:X2}{2:X2}", ItemColor.R,
+                                                 ItemColor.G,
+                                                ItemColor.B);
             }
         }
         public void changeRed(int r)

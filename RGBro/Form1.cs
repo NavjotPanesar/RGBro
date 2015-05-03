@@ -19,14 +19,19 @@ namespace ControlLED
         private ArduinoConnection arduinoConnection;
         private List<ColorListItem> crossfadeColors;
         private ColorListItem currentColorItem;
+        private int lastSelectedColor = -1;
 
         public Form1()
         {
             InitializeComponent();
+        }
 
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
             arduinoConnection = new ArduinoConnection();
             crossfadeColors = new List<ColorListItem>();
-            trackBarRed.SetRange(0,255);
+            trackBarRed.SetRange(0, 255);
             trackBarGreen.SetRange(0, 255);
             trackBarBlue.SetRange(0, 255);
 
@@ -42,13 +47,6 @@ namespace ControlLED
             groupBoxCrossfade.Visible = false;
             currentColorItem = new ColorListItem(Color.FromArgb(255, trackBarRed.Value, trackBarGreen.Value, trackBarBlue.Value));
             textBoxHex.DataBindings.Add("Text", currentColorItem, "HexColor");
-
-        }
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void trackBarRed_Scroll(object sender, EventArgs e)
@@ -57,24 +55,16 @@ namespace ControlLED
             textBoxHex.Text = currentColorItem.HexColor;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void trackBarGreen_Scroll(object sender, EventArgs e)
         {
-            
+            currentColorItem.changeGreen(trackBarGreen.Value);
+            textBoxHex.Text = currentColorItem.HexColor;
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void trackBarBlue_Scroll(object sender, EventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxBlue_TextChanged(object sender, EventArgs e)
-        {
-
+            currentColorItem.changeBlue(trackBarBlue.Value);
+            textBoxHex.Text = currentColorItem.HexColor;
         }
 
         private void color_Click(object sender, EventArgs e)
@@ -98,16 +88,7 @@ namespace ControlLED
             listBoxCrossfade.DataSource = crossfadeColors;
         }
 
-        private void buttonApplyCrossfade_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void listBoxCrossfade_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void listBoxCrossfade_DrawItem(object sender, DrawItemEventArgs e)
         {
             /*
@@ -130,42 +111,20 @@ namespace ControlLED
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            crossfadeColors.RemoveAt(listBoxCrossfade.SelectedIndex);
-            BindData();
+            if (listBoxCrossfade.SelectedIndex != -1)
+            {
+                lastSelectedColor = -1;
+                crossfadeColors.RemoveAt(listBoxCrossfade.SelectedIndex);
+                BindData();
+            }
+            
         }
 
-        private void textBoxGreen_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBarGreen_Scroll(object sender, EventArgs e)
-        {
-            currentColorItem.changeGreen(trackBarGreen.Value);
-            textBoxHex.Text = currentColorItem.HexColor;
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-       
+      
         private void textBoxHex_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ("ABCDEF0123456789".IndexOf(e.KeyChar) == -1)
                 e.Handled = true;
-        }
-
-        private void trackBarBlue_Scroll(object sender, EventArgs e)
-        {
-            currentColorItem.changeBlue(trackBarBlue.Value);
-            textBoxHex.Text = currentColorItem.HexColor;
-        }
-
-        private void buttonColorPicker_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -192,31 +151,7 @@ namespace ControlLED
             }
         }
 
-        private void buttonAdd_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxCrossfade_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonRemove_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonAdd_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
+     
         private void buttonColorPicker_Click_1(object sender, EventArgs e)
         {
             DialogResult result = colorDialog1.ShowDialog();
@@ -236,11 +171,45 @@ namespace ControlLED
             {
                 currentColorItem.ItemColor = System.Drawing.ColorTranslator.FromHtml("0x" + textBoxHex.Text);
                 pictureBoxColorPreview.BackColor = currentColorItem.ItemColor;
+                BindData();
             }
         }
 
         private void listBoxCrossfade_SelectedIndexChanged_2(object sender, EventArgs e)
         {
+            int index = listBoxCrossfade.SelectedIndex;
+            if (index != -1)
+            {
+                updateCurrentColor(crossfadeColors[index].ItemColor);
+                lastSelectedColor = index;
+            }
+        }
+
+        private void updateCurrentColor(Color newColor)
+        {
+            currentColorItem = new ColorListItem(newColor);
+            textBoxHex.Text = currentColorItem.HexColor;
+            trackBarRed.Value = currentColorItem.ItemColor.R;
+            trackBarGreen.Value = currentColorItem.ItemColor.G;
+            trackBarBlue.Value = currentColorItem.ItemColor.B;
+        }
+
+        private void updateCurrentColor(ColorListItem newColorItem)
+        {
+            currentColorItem = newColorItem;
+            textBoxHex.Text = currentColorItem.HexColor;
+            trackBarRed.Value = currentColorItem.ItemColor.R;
+            trackBarGreen.Value = currentColorItem.ItemColor.G;
+            trackBarBlue.Value = currentColorItem.ItemColor.B;
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            if (lastSelectedColor != -1)
+            {
+                crossfadeColors[lastSelectedColor].ItemColor = currentColorItem.ItemColor;
+                BindData();
+            }
         }
 
     }
