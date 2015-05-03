@@ -97,22 +97,44 @@ namespace ControlLED
         
         private void listBoxCrossfade_DrawItem(object sender, DrawItemEventArgs e)
         {
-            /*
-            ColorListItem item = listBoxCrossfade.Items[e.Index] as ColorListItem; // Get the current item and cast it to MyListBoxItem
-            if (item != null)
+            e.DrawBackground();
+
+            bool isItemSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            int itemIndex = e.Index;
+            if (itemIndex >= 0 && itemIndex < crossfadeColors.Count)
             {
-                e.Graphics.DrawString( // Draw the appropriate text in the ListBox
-                    item.HexColor, // The message linked to the item
-                    listBoxCrossfade.Font, // Take the font from the listbox
-                    new SolidBrush(item.ItemColor), // Set the color 
-                    0, // X pixel coordinate
-                    e.Index * listBoxCrossfade.ItemHeight // Y pixel coordinate.  Multiply the index by the ItemHeight defined in the listbox.
-                );
+                Graphics g = e.Graphics;
+
+                Color backgroundColor = crossfadeColors[itemIndex].ItemColor;
+                // Background Color
+                SolidBrush backgroundColorBrush = new SolidBrush(backgroundColor); 
+                g.FillRectangle(backgroundColorBrush, e.Bounds);
+
+                // Set text color
+                string itemText = crossfadeColors[itemIndex].HexColor;
+
+                //awesome
+                //http://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+                bool useBlack = (backgroundColor.R * 0.299 + backgroundColor.G * 0.587 + backgroundColor.B * 0.114) > 186;
+
+                SolidBrush itemTextColorBrush;
+                if (isItemSelected)
+                {
+                    itemTextColorBrush = (useBlack) ? new SolidBrush(Color.DarkGray) : new SolidBrush(Color.LightGray);
+                }
+                else
+                {
+                    itemTextColorBrush = (useBlack) ? new SolidBrush(Color.Black) : new SolidBrush(Color.White);
+                }
+                
+                g.DrawString(itemText, e.Font, itemTextColorBrush, listBoxCrossfade.GetItemRectangle(itemIndex).Location);
+
+                // Clean up
+                backgroundColorBrush.Dispose();
+                itemTextColorBrush.Dispose();
             }
-            else
-            {
-                // The item isn't a MyListBoxItem, do something about it
-            }*/
+
+            e.DrawFocusRectangle();
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -186,11 +208,7 @@ namespace ControlLED
 
         private void listBoxCrossfade_SelectedIndexChanged_2(object sender, EventArgs e)
         {
-            int index = listBoxCrossfade.SelectedIndex;
-            if (index != -1)
-            {
-                updateCurrentColor(crossfadeColors[index].ItemColor);
-            }
+            
         }
 
         private void updateCurrentColor(Color newColor)

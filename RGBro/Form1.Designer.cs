@@ -312,11 +312,13 @@
             // listBoxCrossfade
             // 
             this.listBoxCrossfade.DataSource = this.colorListItemBindingSource;
+            this.listBoxCrossfade.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBoxCrossfade.FormattingEnabled = true;
             this.listBoxCrossfade.Location = new System.Drawing.Point(101, 30);
             this.listBoxCrossfade.Name = "listBoxCrossfade";
             this.listBoxCrossfade.Size = new System.Drawing.Size(89, 173);
             this.listBoxCrossfade.TabIndex = 35;
+            this.listBoxCrossfade.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxCrossfade_DrawItem);
             this.listBoxCrossfade.SelectedIndexChanged += new System.EventHandler(this.listBoxCrossfade_SelectedIndexChanged_2);
             // 
             // buttonRemove
