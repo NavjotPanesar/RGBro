@@ -23,6 +23,7 @@ public class ArduinoControllerMain
                 if (DetectArduino())
                 {
                     RGBro.Properties.Settings.Default.port = port;
+                    RGBro.Properties.Settings.Default.Save();
                     portFound = true;
                     break;
                 }
@@ -60,7 +61,7 @@ public class ArduinoControllerMain
             char charReturnValue = (Char)intReturnASCII;
             currentPort.Open();
             currentPort.Write(buffer, 0, 5);
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
             int count = currentPort.BytesToRead;
             string returnMessage = "";
             while (count > 0)
